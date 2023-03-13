@@ -2,7 +2,6 @@ package app;
 
 import app.dao.UserDaoImpl;
 import app.model.User;
-
 import java.time.LocalDate;
 
 public class Main {
