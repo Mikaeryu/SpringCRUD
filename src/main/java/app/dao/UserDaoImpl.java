@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao{
     //ВОЗМОЖНО стоит убрать эту простыню из сеттеров и геттеров и перенести в конфиг?
+    //типаа, вызывать просто метод getEntityManager из утилитного класса
     private EntityManagerFactory entityManagerFactory;
 
     @Autowired
