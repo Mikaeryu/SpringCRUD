@@ -1,22 +1,18 @@
 package app.dao;
 
 import app.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
+    //@Autowired
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hibernate-mvc"); //тут лучше бы связать бином
 
     private EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
