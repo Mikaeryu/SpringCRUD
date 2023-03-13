@@ -7,11 +7,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(value = "app")
+@ComponentScan(basePackages = "app")
 public class AppConfig {
 
     @Bean
     public static EntityManagerFactory getEntityManagerFactory() {
-        return Persistence.createEntityManagerFactory("CRM");
+        return Persistence.createEntityManagerFactory("hibernate-mvc");
     }
 }
