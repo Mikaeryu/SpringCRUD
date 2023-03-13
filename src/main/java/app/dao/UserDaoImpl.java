@@ -24,8 +24,9 @@ public class UserDaoImpl implements UserDao{
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
-        entityManager.persist(user);
+        entityManager.merge(user);
         transaction.commit();
+
         entityManager.close();
     }
 

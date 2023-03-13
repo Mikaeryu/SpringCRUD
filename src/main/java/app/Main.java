@@ -9,12 +9,12 @@ public class Main {
         UserDaoImpl userDao = new UserDaoImpl();
 
         User user = new User();
-        user.setId(1);
         user.setAge(22);
         user.setBirthDate(LocalDate.of(2022, 9, 23));
         user.setFirstName("Ivan");
         user.setLastName("Fedorovich");
 
+        userDao.save(user);
         userDao.save(user);
     }
 }
