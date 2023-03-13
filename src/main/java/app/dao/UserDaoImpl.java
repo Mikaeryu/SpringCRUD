@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
+    //ВОЗМОЖНО стоит убрать эту простыню из сеттеров и геттеров и перенести в конфиг?
     private EntityManagerFactory entityManagerFactory;
 
     @Autowired
