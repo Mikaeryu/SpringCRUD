@@ -12,20 +12,16 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
     //ВОЗМОЖНО стоит убрать эту простыню из сеттеров и геттеров и перенести в конфиг?
     //типаа, вызывать просто метод getEntityManager из утилитного класса
+    @Autowired
     private EntityManagerFactory entityManagerFactory;
 
-    @Autowired
-    private void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
-    }
-
-    private EntityManager getEntityManager() {
+    private EntityManager createEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
 
     @Override
     public void save(User user) {
-        EntityManager entityManager = getEntityManager();
+        EntityManager entityManager = createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
