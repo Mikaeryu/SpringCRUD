@@ -74,7 +74,7 @@ public class UserDaoImpl implements UserDao{
     @Override
     public List<User> getUserList() {
         EntityManager entityManager = createEntityManager();
-        String jpqlQuery = "SELECT user FROM User user";
+        String jpqlQuery = "SELECT user FROM User user"; //тут разобраться с запросом
         List<User> userList = entityManager.createQuery(jpqlQuery, User.class).getResultList();
         entityManager.close();
         return userList;
