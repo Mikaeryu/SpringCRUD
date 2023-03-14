@@ -19,9 +19,8 @@ public class Main {
         user.setFirstName("Ivan");
         user.setLastName("Fedorovich");
 
-        userDao.save(user);
-        userDao.save(user);
-
+        User user1 = userDao.findUser(1);
+        System.out.println(user1);
         context.close();
     }
 }
