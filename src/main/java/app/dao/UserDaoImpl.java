@@ -12,8 +12,6 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
     //следует пересмотреть методы этого класса и убрать повторяющийся код
 
-    /** ТАКЖЕ СТОИТ рассмотреть открытие всего одного entityManager и привязывания его через @Autowired а
-     * а закрытие осуществлять только через ApplicationContext**/
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
@@ -25,11 +23,11 @@ public class UserDaoImpl implements UserDao{
     public void saveUser(User user) {
         EntityManager entityManager = createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
-        entityManager.merge(user);
-        transaction.commit();
 
+        entityManager.merge(user);
+
+        transaction.commit();
         entityManager.close();
     }
 
@@ -48,11 +46,11 @@ public class UserDaoImpl implements UserDao{
 
         EntityManager entityManager = createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
-        entityManager.merge(updatedUser);
-        transaction.commit();
 
+        entityManager.merge(updatedUser);
+
+        transaction.commit();
         entityManager.close();
     }
 
@@ -60,14 +58,13 @@ public class UserDaoImpl implements UserDao{
     public void deleteUser(long id) {
         EntityManager entityManager = createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-
         transaction.begin();
-        User user = findUser(id);
-        entityManager.remove( //это место не очень нравится, стоит подумать о том, чтобы оставить просто entityManager.merge(user)
-                entityManager.contains(user) ? user : entityManager.merge(user)
-        );
-        transaction.commit();
 
+        User user = findUser(id);
+        user = entityManager.merge(user);
+        entityManager.remove(user);
+
+        transaction.commit();
         entityManager.close();
     }
 

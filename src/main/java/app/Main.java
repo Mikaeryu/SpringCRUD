@@ -22,6 +22,8 @@ public class Main {
 
         List<User> userList = userDao.getUserList();
         userList.forEach(System.out::println);
+        userDao.deleteUser(2);
+        userList.forEach(System.out::println);
 
         context.close();
     }
