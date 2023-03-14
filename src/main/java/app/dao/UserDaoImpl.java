@@ -10,8 +10,10 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
-    //ВОЗМОЖНО стоит убрать эту простыню из сеттеров и геттеров и перенести в конфиг?
-    //типаа, вызывать просто метод getEntityManager из утилитного класса
+    //следует пересмотреть методы этого класса и убрать повторяющийся код
+
+    /** ТАКЖЕ СТОИТ рассмотреть открытие всего одного entityManager и привязывания его через @Autowired а
+     * а закрытие осуществлять только через ApplicationContext**/
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
@@ -41,16 +43,40 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void updateUser(int id, User updatedUser) {
+        User userToUpdate = findUser(id);
+        updatedUser.setId(userToUpdate.getId());
 
+        EntityManager entityManager = createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+        entityManager.merge(updatedUser);
+        transaction.commit();
+
+        entityManager.close();
     }
 
     @Override
     public void deleteUser(long id) {
+        EntityManager entityManager = createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
 
+        transaction.begin();
+        User user = findUser(id);
+        entityManager.remove( //это место не очень нравится, стоит подумать о том, чтобы оставить просто entityManager.merge(user)
+                entityManager.contains(user) ? user : entityManager.merge(user)
+        );
+        transaction.commit();
+
+        entityManager.close();
     }
 
     @Override
     public List<User> getUserList() {
-        return null;
+        EntityManager entityManager = createEntityManager();
+        String jpqlQuery = "SELECT user FROM User user";
+        List<User> userList = entityManager.createQuery(jpqlQuery, User.class).getResultList();
+        entityManager.close();
+        return userList;
     }
 }

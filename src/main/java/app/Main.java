@@ -6,6 +6,7 @@ import app.model.User;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,8 +20,9 @@ public class Main {
         user.setFirstName("Ivan");
         user.setLastName("Fedorovich");
 
-        User user1 = userDao.findUser(1);
-        System.out.println(user1);
+        List<User> userList = userDao.getUserList();
+        userList.forEach(System.out::println);
+
         context.close();
     }
 }
