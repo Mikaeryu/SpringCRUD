@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void save(User user) {
+    public void saveUser(User user) {
         EntityManager entityManager = createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -32,22 +32,22 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User getById(long id) {
+    public User getUser(long id) {
         return null;
     }
 
     @Override
-    public void update(int id, User updatedUser) {
+    public void updateUser(int id, User updatedUser) {
 
     }
 
     @Override
-    public void deleteUserById(long id) {
+    public void deleteUser(long id) {
 
     }
 
     @Override
-    public List<User> getList() {
+    public List<User> getUserList() {
         return null;
     }
 }

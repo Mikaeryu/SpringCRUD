@@ -4,13 +4,13 @@ import app.model.User;
 import java.util.List;
 
 public interface UserDao {
-    void save(User user);
+    void saveUser(User user);
 
-    User getById(long id);
+    User getUser(long id);
 
-    void update(int id, User updatedUser);
+    void updateUser(int id, User updatedUser);
 
-    void deleteUserById(long id);
+    void deleteUser(long id);
 
-    List<User> getList();
+    List<User> getUserList();
 }
