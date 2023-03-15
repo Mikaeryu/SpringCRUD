@@ -26,6 +26,17 @@ public class UserController {
         return "show";
     }
 
+    @GetMapping("/new")
+    public String newUser(@ModelAttribute("user") User user) {
+        return "new";
+    }
+
+    @PostMapping
+    public String create(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/users";
+    }
+
     @DeleteMapping("/delete/id={id}")
     public String delete(@PathVariable("id") int id) {
         userService.deleteUser(id);
