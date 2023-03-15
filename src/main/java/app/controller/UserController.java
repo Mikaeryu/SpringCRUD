@@ -1,6 +1,5 @@
 package app.controller;
 
-import app.dao.UserDao;
 import app.model.User;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,18 @@ public class UserController {
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.findUser(id));
         return "show";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute(userService.findUser(id));
+        return "edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+        userService.updateUser(id, user);
+        return "redirect:/users";
     }
 
     @GetMapping("/new")
