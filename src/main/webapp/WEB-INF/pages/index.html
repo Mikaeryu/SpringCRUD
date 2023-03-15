@@ -8,6 +8,9 @@
 <body>
 <h1>Users</h1>
 
+<br/>
+<a href="/SpringCRUD/users/new">Create new user</a>
+
 <table border="5">
     <thead>
     <tr>
@@ -20,7 +23,7 @@
         <th>ID</th>
         <th>First name</th>
         <th>Last name</th>
-        <th>Age</th>
+        <th>Work experience</th>
         <th>Birth date</th>
     </tr>
 
@@ -28,7 +31,7 @@
         <td th:text="${user.id}">id</td>
         <td th:text="${user.firstName}">firstName</td>
         <td th:text="${user.lastName}">lastName</td>
-        <td th:text="${user.age}">age</td>
+        <td th:text="${user.workExp}">workExp</td>
         <td th:text="${user.birthDate}">birthDate</td>
                 <td>
                     <form th:method="Get" th:action="@{/users/{id}(id=${user.getId()})}">
@@ -48,5 +51,6 @@
     </tr>
     </tbody>
 </table>
+
 </body>
 </html>
