@@ -1,8 +1,6 @@
 package app;
 
 import app.config.AppConfig;
-import app.config.WebConfig;
-import app.dao.UserDaoImpl;
 import app.model.User;
 import app.service.UserService;
 import app.service.UserServiceImpl;
@@ -11,7 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.time.LocalDate;
 import java.util.List;
 
-public class Main {
+public class MainTO_DELETION {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 

@@ -1,21 +1,34 @@
 package app.controller;
 
+import app.dao.UserDao;
 import app.model.User;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping
     public String index(Model model) {
-        userService.saveUser(new User()); //ОПЕРАЦИЯ ДВОИТСЯ если по умолчанию запускать эту страницу
         model.addAttribute("users", userService.getUserList());
         return "index";
+    }
+
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.findUser(id));
+        return "show";
+    }
+
+    @DeleteMapping("/delete/id={id}")
+    public String delete(@PathVariable("id") int id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
     }
 }
