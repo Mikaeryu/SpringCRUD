@@ -24,8 +24,8 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "age")
-    private int age;
+    @Column(name = "work_exp")
+    private int workExp;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birth_date")
