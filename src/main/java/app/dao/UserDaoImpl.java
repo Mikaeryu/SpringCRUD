@@ -10,8 +10,6 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao{
-    //следует пересмотреть методы этого класса и убрать повторяющийся код
-
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
@@ -36,6 +34,7 @@ public class UserDaoImpl implements UserDao{
         EntityManager entityManager = createEntityManager();
         User foundUser = entityManager.find(User.class, id);
         entityManager.close();
+
         return foundUser;
     }
 
@@ -71,9 +70,10 @@ public class UserDaoImpl implements UserDao{
     @Override
     public List<User> getUserList() {
         EntityManager entityManager = createEntityManager();
-        String jpqlQuery = "SELECT user FROM User user"; //тут разобраться с запросом
+        String jpqlQuery = "SELECT u FROM User u";
         List<User> userList = entityManager.createQuery(jpqlQuery, User.class).getResultList();
         entityManager.close();
+
         return userList;
     }
 }
