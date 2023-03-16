@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         EntityManager entityManager = createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
@@ -27,6 +27,8 @@ public class UserDaoImpl implements UserDao{
 
         transaction.commit();
         entityManager.close();
+
+        return user;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void updateUser(int id, User updatedUser) {
+    public User updateUser(int id, User updatedUser) {
         User userToUpdate = findUser(id);
         updatedUser.setId(userToUpdate.getId());
 
@@ -51,6 +53,8 @@ public class UserDaoImpl implements UserDao{
 
         transaction.commit();
         entityManager.close();
+
+        return updatedUser;
     }
 
     @Override

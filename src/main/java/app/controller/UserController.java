@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-    private static final String REDIRECT_TO_USERS = "redirect:/users";
+    private final String REDIRECT_TO_USERS = "redirect:/users";
 
     @Autowired
     UserService userService;
@@ -23,7 +23,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.findUser(id));
+        var user = userService.findUser(id);
+        model.addAttribute("user", user);
         return "show";
     }
 
