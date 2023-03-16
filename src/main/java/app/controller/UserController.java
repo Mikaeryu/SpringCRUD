@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/users")
 public class UserController {
+    private static final String REDIRECT_TO_USERS = "redirect:/users";
+
     @Autowired
     UserService userService;
 
@@ -34,7 +36,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
         userService.updateUser(id, user);
-        return "redirect:/users";
+        return REDIRECT_TO_USERS;
     }
 
     @GetMapping("/new")
@@ -45,12 +47,12 @@ public class UserController {
     @PostMapping
     public String create(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "redirect:/users";
+        return REDIRECT_TO_USERS;
     }
 
-    @DeleteMapping("/delete/id={id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.deleteUser(id);
-        return "redirect:/users";
+        return REDIRECT_TO_USERS;
     }
 }

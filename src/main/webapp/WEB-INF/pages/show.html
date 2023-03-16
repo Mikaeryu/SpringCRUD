@@ -12,8 +12,18 @@
 <p th:text="'Birth date: ' + ${user.birthDate}">VALUE</p>
 
 <br/>
+<form th:method="GET" th:action="@{/users}">
+    <input type="submit" value="Return"/>
+</form>
+
+<br/>
 <form th:method="GET" th:action="@{/users/{id}/edit(id=${user.id})}">
     <input type="submit" value="Edit user"/>
+</form>
+
+<br/>
+<form th:method="DELETE" th:action="@{/users/{id}(id=${user.id})}">
+    <input type="submit" value="Delete user"/>
 </form>
 
 </body>
