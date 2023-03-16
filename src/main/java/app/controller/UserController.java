@@ -2,18 +2,18 @@ package app.controller;
 
 import app.model.User;
 import app.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
     private final String REDIRECT_TO_USERS = "redirect:/users";
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @GetMapping
     public String index(Model model) {

@@ -1,5 +1,6 @@
 package app.config;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import lombok.AccessLevel;
@@ -10,8 +11,12 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Component
 public class AppConfig {
-    @Bean
-    public static EntityManagerFactory getEntityManagerFactory() {
+    private static EntityManagerFactory getEntityManagerFactory() {
         return Persistence.createEntityManagerFactory("hibernate-config");
+    }
+
+    @Bean
+    public static EntityManager getEntityManager() {
+        return getEntityManagerFactory().createEntityManager();
     }
 }
