@@ -8,8 +8,11 @@
 <body>
 <h1>Users</h1>
 
+<form th:method="GET" th:action="@{/users/new}">
+    <input type="submit" value="Create user"/>
+</form>
+
 <br/>
-<a href="/SpringCRUD/users/new">Create new user</a>
 
 <table border="5">
     <thead>
@@ -33,21 +36,21 @@
         <td th:text="${user.lastName}">lastName</td>
         <td th:text="${user.workExp}">workExp</td>
         <td th:text="${user.birthDate}">birthDate</td>
-                <td>
-                    <form th:method="Get" th:action="@{/users/{id}(id=${user.getId()})}">
-                        <input type="submit" value="Show"/>
-                    </form>
-                </td>
-<!--        <td>-->
-<!--            <form th:method="Edit" th:action="@{/users/delete{id}(id=${user.getId()})}">-->
-<!--                <input type="submit" value="Edit"/>-->
-<!--            </form>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <form th:method="DELETE" th:action="@{/users/delete/id={id}(id=${user.getId()})}">-->
-<!--                <input type="submit" value="Delete"/>-->
-<!--            </form>-->
-<!--        </td>-->
+        <td>
+            <form th:method="Get" th:action="@{/users/{id}(id=${user.getId()})}">
+                <input type="submit" value="Show"/>
+            </form>
+        </td>
+        <!--        <td>-->
+        <!--            <form th:method="Edit" th:action="@{/users/delete{id}(id=${user.getId()})}">-->
+        <!--                <input type="submit" value="Edit"/>-->
+        <!--            </form>-->
+        <!--        </td>-->
+        <!--        <td>-->
+        <!--            <form th:method="DELETE" th:action="@{/users/delete/id={id}(id=${user.getId()})}">-->
+        <!--                <input type="submit" value="Delete"/>-->
+        <!--            </form>-->
+        <!--        </td>-->
     </tr>
     </tbody>
 </table>
