@@ -8,7 +8,7 @@
 <body>
 <h1>Users</h1>
 
-<form th:method="GET" th:action="@{/users/new}">
+<form th:method="GET" th:action="@{/admin/users/new}">
     <input type="submit" value="Create user"/>
 </form>
 
@@ -37,7 +37,7 @@
         <td th:text="${user.workExp}">workExp</td>
         <td th:text="${user.birthDate}">birthDate</td>
         <td>
-            <form th:method="Get" th:action="@{/users/{id}(id=${user.getId()})}">
+            <form th:method="Get" th:action="@{/admin/users/{id}(id=${user.getId()})}">
                 <input type="submit" value="Show"/>
             </form>
         </td>

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/admin/users")
 public class UserController {
-    private final String REDIRECT_TO_USERS = "redirect:/users";
+    private final String REDIRECT_TO_USERS = "redirect:/admin/users";
 
     private final UserService userService;
 
