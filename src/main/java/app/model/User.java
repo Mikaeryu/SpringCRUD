@@ -33,11 +33,18 @@ public class User implements UserDetails {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles;
     //код ниже - это добавление из задания с Spring Security
     @Transient
     private String password = "password";
-    @Transient
-    private Set<Role> roles = Collections.singleton(new Role(id, "ROLE_USER"));
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
