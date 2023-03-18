@@ -6,9 +6,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
@@ -33,10 +33,11 @@ public class User implements UserDetails {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    //код ниже - это добавление из задания с Spring Security
     @Transient
-    private String password;
+    private String password = "password";
     @Transient
-    private Set<Role> roles;
+    private Set<Role> roles = Collections.singleton(new Role(id, "ROLE_USER"));
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
