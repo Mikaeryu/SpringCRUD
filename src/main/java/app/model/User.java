@@ -46,7 +46,7 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>(List.of(new Role("ROLE_USER")));
 
-    @Transient //сделал пароль одинаковым для всех юзеров, хз, нужно ли делать по-другому, в рамках задания
+    //сделал пароль одинаковым для всех юзеров, хз, нужно ли делать по-другому, в рамках задания
     private String password = "password";
 
     @Override
