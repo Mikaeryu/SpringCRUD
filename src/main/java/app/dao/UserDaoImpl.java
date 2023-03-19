@@ -1,5 +1,6 @@
 package app.dao;
 
+import app.model.Role;
 import app.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -28,6 +29,13 @@ public class UserDaoImpl implements UserDao{
     @Override
     public User findUser(long id) {
         return entityManager.find(User.class, id);
+    }
+
+    @Override
+    public User findUserByLogin(String login) {
+        String jpqlQuery = "SELECT u FROM User u WHERE u.login = :login";
+
+        return entityManager.createQuery(jpqlQuery, User.class).setParameter("login", login).getSingleResult();
     }
 
     @Override
