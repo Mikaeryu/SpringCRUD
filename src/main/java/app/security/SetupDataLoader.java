@@ -9,14 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import java.util.Arrays;
-import java.util.HashSet;
 
 @Component
 @RequiredArgsConstructor
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    boolean alreadySetup = false;
+    boolean alreadySetup = true;
 
     private final UserDao userDao;
 
@@ -32,12 +30,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         createRoleIfNotFound("ROLE_USER");
 
         Role adminRole = roleDao.findRoleByName("ROLE_ADMIN");
-        Role userRole = roleDao.findRoleByName("ROLE_USER");
         User user = new User();
-        user.setFirstName("ADMIN");
-        user.setLastName("ADMIN");
+        user.setId(0);
+        user.setLogin("ADMIN");
         user.setPassword("ADMIN");
-        user.setRoles(new HashSet<>(Arrays.asList(adminRole, userRole)));
+        user.getRoles().add(adminRole);
         userDao.saveUser(user);
 
         alreadySetup = true;
