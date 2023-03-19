@@ -23,28 +23,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-
         if (alreadySetup) return;
-
-        //createRoleIfNotFound("ROLE_ADMIN");
-        //createRoleIfNotFound("ROLE_USER");
 
         Role adminRole = new Role("ROLE_ADMIN");
         User user = new User();
+        user.setFirstName("ADMIN");
         user.setLogin("admin");
         user.setPassword("admin");
         user.getRoles().add(adminRole);
-        userDao.saveUser(user);
+        if(userDao.getUserList().isEmpty()) userDao.saveUser(user);
         alreadySetup = true;
-    }
-
-    @Transactional
-    Role createRoleIfNotFound(String name) {
-        Role role = roleDao.findRoleByName(name);
-        if (role == null) {
-            role = new Role(name);
-            roleDao.saveRole(role);
-        }
-        return role;
     }
 }
