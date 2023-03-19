@@ -45,6 +45,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<Role> roles = new HashSet<>(List.of(new Role("ROLE_USER")));
+    //private Set<Role> roles = new HashSet<>();
 
     //сделал пароль одинаковым для всех юзеров, хз, нужно ли делать по-другому, в рамках задания
     private String password = "password";
