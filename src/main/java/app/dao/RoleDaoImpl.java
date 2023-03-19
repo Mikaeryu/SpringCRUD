@@ -30,6 +30,13 @@ public class RoleDaoImpl implements RoleDao{
     }
 
     @Override
+    public Role findRoleByName(String  name) {
+        String jpqlQuery = "SELECT r FROM Role r WHERE r.name = :name";
+
+        return entityManager.createQuery(jpqlQuery, Role.class).setParameter("name", name).getSingleResult();
+    }
+
+    @Override
     public void deleteRole(long id) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
