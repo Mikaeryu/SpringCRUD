@@ -34,6 +34,9 @@ public class User implements UserDetails {
     private LocalDate birthDate;
 
     //код ниже - это добавление из задания с Spring Security
+    @Column(name = "login", unique = true)
+    private String login;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -42,13 +45,12 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @Transient
+    @Transient //сделал пароль одинаковым для всех юзеров, хз, нужно ли делать по-другому, в рамках задания
     private String password = "password";
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return String.valueOf(id);
+        return login;
     }
 
     @Override
