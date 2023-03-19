@@ -8,6 +8,8 @@ public interface UserDao {
 
     User findUser(long id);
 
+    User findUserByLogin(String login);
+
     User updateUser(int id, User updatedUser);
 
     void deleteUser(long id);
