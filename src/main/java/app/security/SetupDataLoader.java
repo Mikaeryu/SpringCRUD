@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    boolean alreadySetup = true;
+    boolean alreadySetup = false;
 
     private final UserDao userDao;
 
@@ -26,17 +26,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
         if (alreadySetup) return;
 
-        createRoleIfNotFound("ROLE_ADMIN");
-        createRoleIfNotFound("ROLE_USER");
+        //createRoleIfNotFound("ROLE_ADMIN");
+        //createRoleIfNotFound("ROLE_USER");
 
-        Role adminRole = roleDao.findRoleByName("ROLE_ADMIN");
+        Role adminRole = new Role("ROLE_ADMIN");
         User user = new User();
-        user.setId(0);
-        user.setLogin("ADMIN");
-        user.setPassword("ADMIN");
+        user.setLogin("admin");
+        user.setPassword("admin");
         user.getRoles().add(adminRole);
         userDao.saveUser(user);
-
         alreadySetup = true;
     }
 
