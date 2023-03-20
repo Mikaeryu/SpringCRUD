@@ -21,6 +21,11 @@
         </tr>
 
         <tr>
+            <th>Password: (not null)</th>
+            <th><input type="text" th:field="*{password}" id="password"/></th>
+        </tr>
+
+        <tr>
             <th>First name:</th>
             <th><input type="text" th:field="*{firstName}" id="fistName"/></th>
         </tr>
@@ -45,7 +50,7 @@
     <br/>
     <input type="submit" value="Create!"/>
 
-    <br/>
+    <br><br/>
     <form name="logoutForm" th:action="@{/logout}" th:method="POST">
         <input type="submit" value="Sign out"/>
     </form>
