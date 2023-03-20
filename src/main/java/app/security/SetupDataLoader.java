@@ -43,9 +43,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         user.setLogin("admin");
         user.setPassword("admin");
 
-        Set<Role> userRoles = user.getRoles();
-        userRoles.add(adminRole);
-        userRoles.add(userRole);
+        Set<Role> userRoleSet = user.getRoles();
+        userRoleSet.add(adminRole);
+        userRoleSet.add(userRole);
 
         userService.saveUser(user);
 
