@@ -8,13 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    boolean alreadySetup = false;
+    boolean alreadySetup = false; // тут вообще не уверен насчёт переключателя этого, это норм, или костыльно слишком?
 
     private final UserService userService;
 
@@ -24,16 +26,24 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (alreadySetup) return;
 
         Role adminRole = new Role("ROLE_ADMIN");
+
+        List<User> users = userService.getUserList();
+        boolean usersContainsAdminRole = users.stream()
+                .map(User::getRoles)
+                .flatMap(Collection::stream)
+                .map(Role::getName)
+                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+
+        if(!users.isEmpty() && usersContainsAdminRole) return;
+
         User user = new User();
         user.setFirstName("ADMIN");
         user.setLogin("admin");
         user.setPassword("admin");
         user.getRoles().add(adminRole);
 
-        List<User> users = userService.getUserList();
-        if(users.isEmpty() || users.stream().map(User::getRoles).anyMatch(roles -> roles == adminRole)) { // ТУТ ДОПИЛИ
-            userService.saveUser(user);
-        }
+        userService.saveUser(user);
+
         alreadySetup = true;
     }
 }
