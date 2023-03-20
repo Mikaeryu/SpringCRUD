@@ -1,6 +1,5 @@
 package app.dao;
 
-import app.model.Role;
 import app.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

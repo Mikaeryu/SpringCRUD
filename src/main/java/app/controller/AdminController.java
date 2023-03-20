@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Set;
 
 @Controller
@@ -54,8 +53,8 @@ public class AdminController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("user") User user) { //добавил тут присвоение роли юзера при создании юзера
-        Role roleUser = roleService.findRoleByName("ROLE_USER");
+    public String create(@ModelAttribute("user") User user) { //добавил тут первую строчку, присвоение роли юзера при создании юзера
+        Role roleUser = roleService.findRole("ROLE_USER");
         Set<Role> userRoleSet = user.getRoles();
         userRoleSet.add(roleUser);
         userService.saveUser(user);
