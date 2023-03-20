@@ -7,7 +7,7 @@ public interface RoleDao {
 
     Role findRole(long id);
 
-    Role findRoleByName(String name);
+    Role findRole(String name);
 
     void deleteRole(long id);
 }
