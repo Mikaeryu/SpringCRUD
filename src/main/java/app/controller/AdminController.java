@@ -40,7 +40,7 @@ public class AdminController {
 
     @PatchMapping("/{id}") //первые две строчки метода я добавил, выглядит довольно костыльно. мб стоит делать дип копи юзера?
     public String update(@ModelAttribute("user") User updatedUser, @PathVariable("id") int id) {
-        User userToUpdate = userService.findUser(id);
+        var userToUpdate = userService.findUser(id);
         updatedUser.setRoles(userToUpdate.getRoles());
 
         userService.updateUser(id, updatedUser);
@@ -53,7 +53,7 @@ public class AdminController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("user") User user) { //добавил тут первую строчку, присвоение роли юзера при создании юзера
+    public String create(@ModelAttribute("user") User user) { //добавил тут первые три строчки, присвоение роли юзера при создании юзера
         Role roleUser = roleService.findRole("ROLE_USER");
         Set<Role> userRoleSet = user.getRoles();
         userRoleSet.add(roleUser);
