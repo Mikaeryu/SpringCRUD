@@ -35,7 +35,7 @@ public class User implements UserDetails {
     private LocalDate birthDate;
 
     //код ниже - это всё добавление из задания с Spring Security
-    @Column(name = "login", unique = true)
+    @Column(name = "login", unique = true, nullable = false)
     private String login;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
