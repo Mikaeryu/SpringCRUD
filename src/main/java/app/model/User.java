@@ -46,8 +46,7 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
-    //сделал пароль одинаковым для всех юзеров, хз, нужно ли делать по-другому, в рамках задания
-    private String password = "password";
+    private String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
