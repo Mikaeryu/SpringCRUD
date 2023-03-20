@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    //код ниже - это добавление из задания с Spring Security
+    //код ниже - это всё добавление из задания с Spring Security
     @Column(name = "login", unique = true)
     private String login;
 
@@ -44,8 +44,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private Set<Role> roles = new HashSet<>(List.of(new Role("ROLE_USER")));
-    //private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     //сделал пароль одинаковым для всех юзеров, хз, нужно ли делать по-другому, в рамках задания
     private String password = "password";
