@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (alreadySetup) return;
 
+        Role userRole = new Role("ROLE_USER");
         Role adminRole = new Role("ROLE_ADMIN");
 
         List<User> users = userService.getUserList();
@@ -40,7 +42,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         user.setFirstName("ADMIN");
         user.setLogin("admin");
         user.setPassword("admin");
-        user.getRoles().add(adminRole);
+
+        Set<Role> userRoles = user.getRoles();
+        userRoles.add(adminRole);
+        userRoles.add(userRole);
 
         userService.saveUser(user);
 
