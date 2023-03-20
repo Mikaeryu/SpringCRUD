@@ -24,18 +24,24 @@
     <tbody>
     <tr>
         <th>ID</th>
+        <th>Login</th>
+        <th>Password</th>
         <th>First name</th>
         <th>Last name</th>
         <th>Work exp. in years</th>
         <th>Birth date</th>
+        <th>Roles</th>
     </tr>
 
     <tr th:each="user : ${users}">
         <td th:text="${user.id}">id</td>
+        <td th:text="${user.login}">login</td>
+        <td th:text="${user.password}">login</td>
         <td th:text="${user.firstName}">firstName</td>
         <td th:text="${user.lastName}">lastName</td>
         <td th:text="${user.workExp}">workExp</td>
         <td th:text="${user.birthDate}">birthDate</td>
+        <td th:text="${user.roles}">roles</td>
         <td>
             <form th:method="Get" th:action="@{/admin/users/{id}(id=${user.getId()})}">
                 <input type="submit" value="Show"/>
