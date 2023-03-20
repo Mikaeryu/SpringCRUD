@@ -47,6 +47,9 @@ public class User implements UserDetails {
     @Column(name = "login", unique = true, nullable = false)
     private String login;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -54,9 +57,6 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<Role> roles = new HashSet<>();
-
-    @Column(name = "password", nullable = false)
-    private String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

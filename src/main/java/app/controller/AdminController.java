@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
+//это старый класс, тут только в некоторых местах добавления
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/users")
