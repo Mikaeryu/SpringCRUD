@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User findUserByLogin(String login) {
+    public User findUser(String login) {
         String jpqlQuery = "SELECT u FROM User u WHERE u.login = :login";
 
         return entityManager.createQuery(jpqlQuery, User.class).setParameter("login", login).getSingleResult();

@@ -8,7 +8,7 @@ public interface UserDao {
 
     User findUser(long id);
 
-    User findUserByLogin(String login);
+    User findUser(String login);
 
     User updateUser(int id, User updatedUser);
 
