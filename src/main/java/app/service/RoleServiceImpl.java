@@ -3,7 +3,9 @@ package app.service;
 import app.dao.RoleDao;
 import app.model.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService{
 
