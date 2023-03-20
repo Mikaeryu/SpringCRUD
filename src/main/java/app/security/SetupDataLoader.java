@@ -12,6 +12,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Класс служит для первоначальной инициализации админа.
+ * Если в БД нету юзера с правами админа, то он создаётся на старте сервера.
+ * Вместе с ним создаются и роли юзера и админа.
+ */
 @Component
 @RequiredArgsConstructor
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -48,6 +53,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
         userService.saveUser(user);
 
-        alreadySetup = true;
+        alreadySetup = true; //после первоначального сетапа метод будет сразу прерываться
     }
 }
