@@ -1,11 +1,15 @@
 package app.controller;
 
+import app.model.Role;
 import app.model.User;
+import app.service.RoleService;
 import app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -14,6 +18,7 @@ public class UserController {
     private final String REDIRECT_TO_USERS = "redirect:/admin/users";
 
     private final UserService userService;
+    private final RoleService roleService;
 
     @GetMapping
     public String index(Model model) {
@@ -46,7 +51,10 @@ public class UserController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") User user) { //добавил тут присвоение роли юзера при создании юзера
+        Role roleUser = roleService.findRoleByName("ROLE_USER");
+        Set<Role> userRoleSet = user.getRoles();
+        userRoleSet.add(roleUser);
         userService.saveUser(user);
         return REDIRECT_TO_USERS;
     }
