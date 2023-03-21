@@ -39,7 +39,7 @@ public class AdminController {
         return "edit";
     }
 
-    @PatchMapping("/{id}") //первые две строчки метода я добавил, выглядит довольно костыльно. мб стоит делать дип копи юзера?
+    @PatchMapping("/{id}") //первые две строчки метода я добавил,
     public String update(@ModelAttribute("user") User updatedUser, @PathVariable("id") int id) {
         var userToUpdate = userService.findUser(id);
         updatedUser.setRoles(userToUpdate.getRoles());
