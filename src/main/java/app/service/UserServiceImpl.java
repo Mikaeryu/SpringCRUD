@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User findUser(String  login) {
+        return userDao.findUser(login);
+    }
+
+    @Override
     public User updateUser(int id, User updatedUser) {
         return userDao.updateUser(id, updatedUser);
     }
