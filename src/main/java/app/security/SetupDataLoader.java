@@ -3,7 +3,7 @@ package app.security;
 import app.model.Role;
 import app.model.User;
 import app.service.UserService;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
