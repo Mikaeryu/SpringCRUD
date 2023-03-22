@@ -2,8 +2,8 @@ package app.dao;
 
 import app.model.User;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -12,7 +12,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserDaoImpl implements UserDao{
 
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional
     @Override
