@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<h1>Users</h1>
+
+<form th:method="GET" th:action="@{/admin/users/new}">
+    <input type="submit" value="Create user"/>
+</form>
+
+<br/>
+
+<table border="5">
+    <thead>
+    <tr>
+        <th colspan="8"> List of users:</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <th>ID</th>
+        <th>Login</th>
+        <th>Password</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Work exp. in years</th>
+        <th>Birth date</th>
+        <th>Roles</th>
+    </tr>
+
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">id</td>
+        <td th:text="${user.login}">login</td>
+        <td th:text="${user.password}">login</td>
+        <td th:text="${user.firstName}">firstName</td>
+        <td th:text="${user.lastName}">lastName</td>
+        <td th:text="${user.workExp}">workExp</td>
+        <td th:text="${user.birthDate}">birthDate</td>
+        <td th:text="${user.roles}">roles</td>
+        <td>
+            <form th:method="Get" th:action="@{/admin/users/{id}(id=${user.getId()})}">
+                <input type="submit" value="Show"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+<form name="logoutForm" th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Sign out"/>
+</form>
+
+</body>
+</html>

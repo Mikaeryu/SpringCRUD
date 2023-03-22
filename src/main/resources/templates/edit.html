@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit user</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/admin/users/{id}(id=${user.id})}" th:object="${user}">
+  <table>
+    <thead>
+    <tr>
+      <th colspan="2">Edit user:</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+      <th>ID:</th>
+      <th><p th:text="${user.id}">VALUE</p></th>
+    </tr>
+
+    <tr>
+      <th>Login:</th>
+      <th><input type="text" readonly th:field="*{login}" id="login"/></th>
+    </tr>
+
+    <tr>
+      <th>password:</th>
+      <th><input type="text" th:field="*{password}" id="password"/></th>
+    </tr>
+
+    <tr>
+      <th>First name:</th>
+      <th><input type="text" th:field="*{firstName}" id="fistName"/></th>
+    </tr>
+
+    <tr>
+      <th>Last name:</th>
+      <th><input type="text" th:field="*{lastName}" id="lastName"/></th>
+    </tr>
+
+    <tr>
+      <th>Work Experience:</th>
+      <th><input type="text" th:field="*{workExp}" id="workExp"/></th>
+    </tr>
+
+    <tr>
+      <th>Birth date: (yyyy-MM-dd)</th>
+      <th><input type="text" th:field="*{birthDate}" id="birthDate"/></th>
+    </tr>
+    </tbody>
+  </table>
+
+  <br/>
+  <input type="submit" value="Update!"/>
+</form>
+
+<br/>
+<form name="logoutForm" th:action="@{/logout}" th:method="POST">
+  <input type="submit" value="Sign out"/>
+</form>
+
+</body>
+</html>

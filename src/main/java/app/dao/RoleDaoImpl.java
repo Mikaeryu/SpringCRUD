@@ -2,7 +2,8 @@ package app.dao;
 
 import app.model.Role;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -12,15 +13,10 @@ public class RoleDaoImpl implements RoleDao{
 
     private final EntityManager entityManager;
 
+    @Transactional
     @Override
     public Role saveRole(Role role) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
         entityManager.merge(role);
-
-        transaction.commit();
-
         return role;
     }
 
@@ -36,17 +32,13 @@ public class RoleDaoImpl implements RoleDao{
         return entityManager.createQuery(jpqlQuery, Role.class).setParameter("name", name).getSingleResult();
     }
 
+    @Transactional
     @Override
     public void deleteRole(long id) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
         Role role = findRole(id);
         if (!entityManager.contains(role)) {
             role = entityManager.merge(role);
         }
         entityManager.remove(role);
-
-        transaction.commit();
     }
 }

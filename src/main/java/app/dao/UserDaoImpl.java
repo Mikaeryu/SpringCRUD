@@ -2,7 +2,8 @@ package app.dao;
 
 import app.model.User;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import javax.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -13,15 +14,10 @@ public class UserDaoImpl implements UserDao{
 
     private final EntityManager entityManager;
 
+    @Transactional
     @Override
     public User saveUser(User user) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
         entityManager.merge(user);
-
-        transaction.commit();
-
         return user;
     }
 
@@ -37,31 +33,23 @@ public class UserDaoImpl implements UserDao{
         return entityManager.createQuery(jpqlQuery, User.class).setParameter("login", login).getSingleResult();
     }
 
+    @Transactional
     @Override
     public User updateUser(int id, User updatedUser) {
         User userToUpdate = findUser(id);
         updatedUser.setId(userToUpdate.getId());
-
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
         entityManager.merge(updatedUser);
-        transaction.commit();
-
         return updatedUser;
     }
 
+    @Transactional
     @Override
     public void deleteUser(long id) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
         User user = findUser(id);
         if (!entityManager.contains(user)) {
             user = entityManager.merge(user);
         }
         entityManager.remove(user);
-
-        transaction.commit();
     }
 
     @Override
