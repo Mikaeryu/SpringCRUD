@@ -1,5 +1,6 @@
-package app.security;
+package app.config;
 
+import app.security.SuccessUserHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
