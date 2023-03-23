@@ -4,10 +4,8 @@ import app.dao.RoleDao;
 import app.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService{
 
