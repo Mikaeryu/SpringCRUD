@@ -21,9 +21,9 @@ public class AdminController {
     private final RoleService roleService;
 
     @GetMapping
-    public String index(Model model) {
+    public String users(Model model) {
         model.addAttribute("users", userService.getUserList());
-        return "index";
+        return "users";
     }
 
     @GetMapping("/{id}")
