@@ -4,11 +4,9 @@ import app.model.Role;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@RequiredArgsConstructor
 public class RoleDaoImpl implements RoleDao{
 
     @PersistenceContext

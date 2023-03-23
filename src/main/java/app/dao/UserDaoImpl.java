@@ -4,12 +4,10 @@ import app.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
 public class UserDaoImpl implements UserDao{
 
     @PersistenceContext
