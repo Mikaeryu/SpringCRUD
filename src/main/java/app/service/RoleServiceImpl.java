@@ -1,6 +1,6 @@
 package app.service;
 
-import app.dao.RoleDao;
+import app.dao.RoleRepository;
 import app.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,25 +9,25 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService{
 
-    private final RoleDao roleDao;
+    private final RoleRepository roleRepository;
 
     @Override
     public Role saveRole(Role role) {
-        return roleDao.saveRole(role);
+        return roleRepository.save(role);
     }
 
     @Override
     public Role findRole(long id) {
-        return roleDao.findRole(id);
+        return roleRepository.findRoleById(id);
     }
 
     @Override
     public Role findRole(String name) {
-        return roleDao.findRole(name);
+        return roleRepository.findRoleByName(name);
     }
 
     @Override
     public void deleteRole(long id) {
-        roleDao.deleteRole(id);
+        roleRepository.deleteRoleById(id);
     }
 }
