@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
 
     @Override
-    public User saveOrUpdateUser(User user) {
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
 
@@ -34,6 +34,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getUserList() {
-        return userRepository.getAllUsers();
+        return userRepository.getUserList();
     }
 }

@@ -49,7 +49,7 @@ public class AdminController {
         existingUser.setWorkExp(inboundUser.getWorkExp());
         existingUser.setBirthDate(inboundUser.getBirthDate());
 
-        userService.saveOrUpdateUser(existingUser);
+        userService.saveUser(existingUser);
         return REDIRECT_TO_USERS;
     }
 
@@ -63,7 +63,7 @@ public class AdminController {
         Role roleUser = roleService.findRole("ROLE_USER");
         Set<Role> userRoleSet = user.getRoles();
         userRoleSet.add(roleUser);
-        userService.saveOrUpdateUser(user);
+        userService.saveUser(user);
         return REDIRECT_TO_USERS;
     }
 

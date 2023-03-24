@@ -4,7 +4,7 @@ import app.model.User;
 import java.util.List;
 
 public interface UserService {
-    User saveOrUpdateUser(User user);
+    User saveUser(User user);
 
     User findUser(long id);
 
