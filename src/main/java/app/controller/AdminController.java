@@ -39,12 +39,17 @@ public class AdminController {
         return "edit";
     }
 
-    @PatchMapping("/{id}") //первые две строчки метода я добавил,
-    public String update(@ModelAttribute("user") User updatedUser, @PathVariable("id") int id) {
-        var userToUpdate = userService.findUser(id);
-        updatedUser.setRoles(userToUpdate.getRoles());
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") User inboundUser, @PathVariable("id") int id) {
+        var existingUser = userService.findUser(id);
 
-        userService.updateUser(id, updatedUser);
+        existingUser.setPassword(inboundUser.getPassword());
+        existingUser.setFirstName(inboundUser.getFirstName());
+        existingUser.setLastName(inboundUser.getLastName());
+        existingUser.setWorkExp(inboundUser.getWorkExp());
+        existingUser.setBirthDate(inboundUser.getBirthDate());
+
+        userService.saveOrUpdateUser(existingUser);
         return REDIRECT_TO_USERS;
     }
 
@@ -58,7 +63,7 @@ public class AdminController {
         Role roleUser = roleService.findRole("ROLE_USER");
         Set<Role> userRoleSet = user.getRoles();
         userRoleSet.add(roleUser);
-        userService.saveUser(user);
+        userService.saveOrUpdateUser(user);
         return REDIRECT_TO_USERS;
     }
 
