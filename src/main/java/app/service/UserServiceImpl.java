@@ -1,6 +1,7 @@
 package app.service;
 
 import app.dao.UserDao;
+import app.dao.UserRepository;
 import app.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,33 +13,35 @@ public class UserServiceImpl implements UserService{
 
     private final UserDao userDao;
 
+    private final UserRepository userRepository;
+
     @Override
     public User saveUser(User user) {
-        return userDao.saveUser(user);
+        return userRepository.save(user);
     }
 
     @Override
     public User findUser(long id) {
-        return userDao.findUser(id);
+        return userRepository.findUserById(id);
     }
 
     @Override
     public User findUser(String  login) {
-        return userDao.findUser(login);
+        return userRepository.findUserByLogin(login);
     }
 
     @Override
-    public User updateUser(int id, User updatedUser) {
+    public User updateUser(int id, User updatedUser) { // НЕ РЕАЛИЗОВАНО ЧЕРЕЗ userRepository
         return userDao.updateUser(id, updatedUser);
     }
 
     @Override
     public void deleteUser(long id) {
-        userDao.deleteUser(id);
+        userRepository.deleteUserById(id);
     }
 
     @Override
     public List<User> getUserList() {
-        return userDao.getUserList();
+        return userRepository.getAllUsers();
     }
 }

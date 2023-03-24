@@ -2,20 +2,26 @@ package app.dao;
 
 import app.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    @Transactional
     User save(User user);
 
-    User findUserBy(long id);
+    User findUserById(long id);
 
-    User findUserBy(String login);
+    User findUserByLogin(String login);
 
-    User updateUser(User user);
+//    User updateUser(long id, User user); // НЕ РЕАЛИЗОВАНО
 
-    void deleteUserBy(long id);
+    @Transactional
+    void deleteUserById(long id);
 
-    List<User> getAll();
+    @Query("SELECT u FROM User u")
+    List<User> getAllUsers();
 }
