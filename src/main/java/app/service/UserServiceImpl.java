@@ -1,6 +1,5 @@
 package app.service;
 
-import app.dao.UserDao;
 import app.dao.UserRepository;
 import app.model.User;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +10,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
-    private final UserDao userDao;
-
     private final UserRepository userRepository;
 
     @Override
-    public User saveUser(User user) {
+    public User saveOrUpdateUser(User user) {
         return userRepository.save(user);
     }
 
@@ -28,11 +25,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findUser(String  login) {
         return userRepository.findUserByLogin(login);
-    }
-
-    @Override
-    public User updateUser(int id, User updatedUser) { // НЕ РЕАЛИЗОВАНО ЧЕРЕЗ userRepository
-        return userDao.updateUser(id, updatedUser);
     }
 
     @Override

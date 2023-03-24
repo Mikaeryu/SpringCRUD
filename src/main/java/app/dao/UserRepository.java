@@ -17,8 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findUserByLogin(String login);
 
-//    User updateUser(long id, User user); // НЕ РЕАЛИЗОВАНО
-
     @Transactional
     void deleteUserById(long id);
 
