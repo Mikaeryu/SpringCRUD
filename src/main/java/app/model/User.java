@@ -28,6 +28,7 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false)
     private long id;
 
     @Column(name = "first_name")
@@ -44,7 +45,7 @@ public class User implements UserDetails {
     private LocalDate birthDate;
 
     //код ниже - это всё добавление из задания с Spring Security
-    @Column(name = "login", unique = true, nullable = false)
+    @Column(name = "login", unique = true, nullable = false, updatable = false)
     private String login;
 
     @Column(name = "password", nullable = false)
