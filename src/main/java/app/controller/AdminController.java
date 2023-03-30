@@ -1,7 +1,7 @@
 package app.controller;
 
-import app.dto.Mapper;
 import app.dto.UserDto;
+import app.dto.UserMapper;
 import app.model.Role;
 import app.model.User;
 import app.service.RoleService;
@@ -21,15 +21,15 @@ import java.util.stream.Collectors;
 public class AdminController {
     private final String REDIRECT_TO_USERS = "redirect:/admin/users";
 
-    private final Mapper mapper;
     private final UserService userService;
     private final RoleService roleService;
+    private final UserMapper userMapper;
 
     @GetMapping
     public String users(Model model) {
         List<UserDto> userDtoList = userService.getUserList()
                 .stream()
-                .map(mapper::toUserDto)
+                .map(userMapper::toUserDto)
                 .collect(Collectors.toList());
 
         model.addAttribute("users", userDtoList);
@@ -53,7 +53,7 @@ public class AdminController {
     public String update(@ModelAttribute("user") UserDto inboundUserDto, @PathVariable("id") int id) {
         var existingUser = userService.findUser(id);
 
-        mapper.updateUserFromDto(inboundUserDto, existingUser);
+        userMapper.updateUserFromDto(inboundUserDto, existingUser);
 
         userService.saveUser(existingUser);
         return REDIRECT_TO_USERS;
@@ -70,7 +70,7 @@ public class AdminController {
         Set<Role> userRoleSet = userDto.getRoles();
         userRoleSet.add(roleUser);
 
-        User user = mapper.toUser(userDto);
+        User user = userMapper.toUser(userDto);
         userService.saveUser(user);
         return REDIRECT_TO_USERS;
     }
