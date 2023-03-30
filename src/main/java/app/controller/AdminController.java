@@ -1,5 +1,7 @@
 package app.controller;
 
+import app.dto.Mapper;
+import app.dto.UserDto;
 import app.model.Role;
 import app.model.User;
 import app.service.RoleService;
@@ -8,7 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 //это старый класс, тут только в некоторых местах добавления
 @Controller
@@ -17,12 +22,18 @@ import java.util.Set;
 public class AdminController {
     private final String REDIRECT_TO_USERS = "redirect:/admin/users";
 
+    private final Mapper mapper;
     private final UserService userService;
     private final RoleService roleService;
 
     @GetMapping
     public String users(Model model) {
-        model.addAttribute("users", userService.getUserList());
+        List<UserDto> userDtoList = userService.getUserList()
+                .stream()
+                .map(mapper::toUserDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("users", userDtoList);
         return "users";
     }
 
