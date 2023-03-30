@@ -30,4 +30,47 @@ public class Mapper {
 
         return userDto;
     }
+    
+    public User toUser(UserDto userDto) {
+        Long id = userDto.getId();
+        String firstName = userDto.getFirstName();
+        String lastName = userDto.getLastName();
+        int workExp = userDto.getWorkExp();
+        LocalDate birthDate = userDto.getBirthDate();
+        String login = userDto.getLogin();
+        String password = userDto.getPassword();
+        Set<Role> roles = userDto.getRoles();
+
+        User user = new User();
+        user.setId(id);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setWorkExp(workExp);
+        user.setBirthDate(birthDate);
+        user.setLogin(login);
+        user.setPassword(password);
+        user.setRoles(roles);
+
+        return user;
+    }
+
+    public void updateUserFromDto(UserDto userDto, User user) {
+        Long id = userDto.getId();
+        String firstName = userDto.getFirstName();
+        String lastName = userDto.getLastName();
+        int workExp = userDto.getWorkExp();
+        LocalDate birthDate = userDto.getBirthDate();
+        String login = userDto.getLogin();
+        String password = userDto.getPassword();
+        Set<Role> roles = userDto.getRoles();
+
+        user.setId(id);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setWorkExp(workExp);
+        user.setBirthDate(birthDate);
+        user.setLogin(login);
+        user.setPassword(password);
+        //user.setRoles(roles); Обновление ролей убрано.
+    }
 }
