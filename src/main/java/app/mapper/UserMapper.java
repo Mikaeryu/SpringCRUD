@@ -1,5 +1,6 @@
-package app.dto;
+package app.mapper;
 
+import app.dto.UserDto;
 import app.model.User;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;

@@ -1,7 +1,7 @@
 package app.controller;
 
 import app.dto.UserDto;
-import app.dto.UserMapper;
+import app.mapper.UserMapper;
 import app.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
