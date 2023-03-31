@@ -40,7 +40,6 @@ public class AdminController {
 
     @PutMapping("/{id}")
     public UserDto update(@RequestBody UserDto inboundUserDto, @PathVariable long id) {
-        inboundUserDto.setId(id);
         var existingUser = userService.findUser(id);
         mapper.updateUserFromDto(inboundUserDto, existingUser);
         userService.saveUser(existingUser);
