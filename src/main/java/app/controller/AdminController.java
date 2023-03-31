@@ -7,7 +7,6 @@ import app.model.User;
 import app.service.RoleService;
 import app.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 //это старый класс, тут только в некоторых местах добавления
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/users")
 public class AdminController {
@@ -23,24 +22,20 @@ public class AdminController {
 
     private final UserService userService;
     private final RoleService roleService;
-    private final UserMapper userMapper;
+    private final UserMapper mapper;
 
     @GetMapping
-    public String users(Model model) {
-        List<UserDto> userDtoList = userService.getUserList()
+    public List<UserDto> users() {
+        return userService.getUserList()
                 .stream()
-                .map(userMapper::toUserDto)
+                .map(mapper::toUserDto)
                 .collect(Collectors.toList());
-
-        model.addAttribute("users", userDtoList);
-        return "users";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
+    public UserDto showOne(@PathVariable long id) {
         var user = userService.findUser(id);
-        model.addAttribute("user", user);
-        return "show";
+        return mapper.toUserDto(user);
     }
 
     @GetMapping("/{id}/edit")
@@ -53,7 +48,7 @@ public class AdminController {
     public String update(@ModelAttribute("user") UserDto inboundUserDto, @PathVariable("id") int id) {
         var existingUser = userService.findUser(id);
 
-        userMapper.updateUserFromDto(inboundUserDto, existingUser);
+        mapper.updateUserFromDto(inboundUserDto, existingUser);
 
         userService.saveUser(existingUser);
         return REDIRECT_TO_USERS;
@@ -70,7 +65,7 @@ public class AdminController {
         Set<Role> userRoleSet = userDto.getRoles();
         userRoleSet.add(roleUser);
 
-        User user = userMapper.toUser(userDto);
+        User user = mapper.toUser(userDto);
         userService.saveUser(user);
         return REDIRECT_TO_USERS;
     }
