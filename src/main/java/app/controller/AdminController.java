@@ -1,7 +1,7 @@
 package app.controller;
 
 import app.dto.UserDto;
-import app.dto.UserMapper;
+import app.mapper.UserMapper;
 import app.model.User;
 import app.service.UserService;
 import lombok.RequiredArgsConstructor;
