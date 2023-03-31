@@ -42,13 +42,11 @@ public class AdminController {
     }
 
     @PutMapping("/{id}")
-    public String update(@ModelAttribute("user") UserDto inboundUserDto, @PathVariable("id") int id) {
+    public UserDto update(@RequestBody UserDto inboundUserDto, @PathVariable long id) {
         var existingUser = userService.findUser(id);
-
         mapper.updateUserFromDto(inboundUserDto, existingUser);
-
         userService.saveUser(existingUser);
-        return REDIRECT_TO_USERS;
+        return inboundUserDto;
     }
 
     @DeleteMapping("/{id}")
