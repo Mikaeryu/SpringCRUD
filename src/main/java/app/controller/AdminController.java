@@ -3,7 +3,6 @@ package app.controller;
 import app.dto.UserDto;
 import app.dto.UserMapper;
 import app.model.User;
-import app.service.RoleService;
 import app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +13,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/admin/users")
 public class AdminController {
-    private final String REDIRECT_TO_USERS = "redirect:/admin/users";
 
     private final UserService userService;
-    private final RoleService roleService;
     private final UserMapper mapper;
 
     @GetMapping
@@ -50,8 +47,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable long id) {
         userService.deleteUser(id);
-        return REDIRECT_TO_USERS;
     }
 }

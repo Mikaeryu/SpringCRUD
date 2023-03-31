@@ -1,18 +1,22 @@
 package app.controller;
 
+import app.dto.UserDto;
+import app.dto.UserMapper;
 import app.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 public class UserController {
 
+    private final UserMapper userMapper;
+
     @GetMapping("/user")
-    public String showInfo(Model model, Authentication auth) {
+    public UserDto showUserInfo(Authentication auth) {
         var user = (User) auth.getPrincipal();
-        model.addAttribute("user", user);
-        return "user_info";
+        return userMapper.toUserDto(user);
     }
 }
