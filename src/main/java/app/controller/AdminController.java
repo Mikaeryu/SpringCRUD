@@ -34,16 +34,17 @@ public class AdminController {
     @PostMapping
     public UserDto create(@RequestBody UserDto userDto) {
         User user = mapper.toUser(userDto);
-        userService.saveUser(user);
-        return userDto;
+        user = userService.saveUser(user);
+        return mapper.toUserDto(user);
     }
 
     @PutMapping("/{id}")
     public UserDto update(@RequestBody UserDto inboundUserDto, @PathVariable long id) {
+        inboundUserDto.setId(id);
         var existingUser = userService.findUser(id);
         mapper.updateUserFromDto(inboundUserDto, existingUser);
         userService.saveUser(existingUser);
-        return inboundUserDto;
+        return mapper.toUserDto(existingUser);
     }
 
     @DeleteMapping("/{id}")
