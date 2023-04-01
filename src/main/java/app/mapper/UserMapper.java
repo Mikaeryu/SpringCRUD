@@ -4,7 +4,6 @@ import app.dto.UserDto;
 import app.model.User;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
