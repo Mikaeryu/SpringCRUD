@@ -2,7 +2,6 @@ package app.controller;
 
 import app.dto.UserDto;
 import app.mapper.UserMapper;
-import app.model.User;
 import app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,7 @@ public class AdminController {
 
     @PostMapping
     public UserDto create(@RequestBody UserDto userDto) {
-        User user = mapper.toUser(userDto);
+        var user = mapper.toUser(userDto);
         user = userService.saveUser(user);
         return mapper.toUserDto(user);
     }
@@ -42,7 +41,7 @@ public class AdminController {
     public UserDto update(@RequestBody UserDto inboundUserDto, @PathVariable long id) {
         var existingUser = userService.findUser(id);
         mapper.updateUserFromDto(inboundUserDto, existingUser);
-        userService.saveUser(existingUser);
+        existingUser = userService.saveUser(existingUser);
         return mapper.toUserDto(existingUser);
     }
 
