@@ -15,6 +15,3 @@ out/
 
 #other stuff
 pom.xml.versionsBackup
-
-#test folder
-/src/test
