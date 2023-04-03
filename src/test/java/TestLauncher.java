@@ -1,5 +1,6 @@
 import org.junit.platform.engine.discovery.DiscoverySelectors;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
+import org.junit.platform.launcher.TagFilter;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
@@ -12,6 +13,7 @@ public class TestLauncher {
 
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder
                 .request()
+                .filters(TagFilter.includeTags("toUserDto")) //фильтрует тесты, помеченные тегом
                 .selectors(DiscoverySelectors.selectPackage("app")) //в селекторе можно задать класс или пакет
                 .build();
 

@@ -10,7 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
+
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.fail;
 
 @SpringBootTest
 class UserServiceTest {
@@ -44,6 +48,23 @@ class UserServiceTest {
         Assertions.assertTrue(userService.getUserList().size() == userNum + 1);
         userService.deleteUser(user.getId());
     }
+
+    @Test
+    void throwsDataIntegrityViolationException_whenUserWithNullLoginIsPassed() {
+        final User USER_WITH_NULL_LOGIN = User.builder()
+                .id(3)
+                .login(null)
+                .password("pass")
+                .build();
+
+        Assertions.assertThrows(
+                DataIntegrityViolationException.class,
+                () -> userService.saveUser(USER_WITH_NULL_LOGIN),
+                "saving user with null login should throw DataIntegrityViolationException exception"
+        );
+
+    }
+
 
     @AfterEach
     void printThis() {
