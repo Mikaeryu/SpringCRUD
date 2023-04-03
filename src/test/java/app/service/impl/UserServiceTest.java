@@ -8,20 +8,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class UserServiceTest {
+class UserServiceTest {
     @Autowired
     private UserService userService;
 
     @BeforeAll
-    void printBeforeAll() {
-        System.out.println("Before all: " + this);
+    static void printBeforeAll() {
+        System.out.println("Before all: ");
     }
 
     @BeforeEach
@@ -53,7 +51,7 @@ public class UserServiceTest {
     }
 
     @AfterAll
-    void printAfterAll() {
-        System.out.println("After all: " + this);
+    static void printAfterAll() {
+        System.out.println("After all: ");
     }
 }

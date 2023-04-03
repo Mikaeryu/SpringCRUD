@@ -12,7 +12,7 @@ public class TestLauncher {
 
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder
                 .request()
-                .selectors(DiscoverySelectors.selectPackage("app.service.impl")) //в селекторе можно задать класс или пакет
+                .selectors(DiscoverySelectors.selectPackage("app")) //в селекторе можно задать класс или пакет
                 .build();
 
         var summaryGeneratingListener = new SummaryGeneratingListener(); //лисенер собирает статистику по тестам
