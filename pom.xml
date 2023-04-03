@@ -101,7 +101,7 @@
 			<version>1.5.3.Final</version>
 		</dependency>
 
-<!--		Tests-->
+		<!--Tests-->
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
