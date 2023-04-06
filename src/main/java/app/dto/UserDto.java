@@ -1,6 +1,7 @@
 package app.dto;
 
 import app.model.Role;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
