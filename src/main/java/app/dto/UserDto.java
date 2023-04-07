@@ -30,6 +30,6 @@ public class UserDto implements Serializable {
     private String login;
 
     private String password;
-
-    private Set<Role> roles = new HashSet<>();
+    
+    private Set<Role> roles;
 }
