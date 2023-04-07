@@ -30,7 +30,7 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
-@Builder(toBuilder = true)
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
