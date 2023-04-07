@@ -37,9 +37,11 @@ public class AdminController {
         return mapper.toUserDto(user);
     }
 
-    @PutMapping("/{id}")
-    public UserDto update(@RequestBody UserDto inboundUserDto, @PathVariable long id) {
-        var existingUser = userService.findUser(id);
+    @PutMapping
+    public UserDto update(@RequestBody UserDto inboundUserDto) {
+        var userId = inboundUserDto.getId();
+        var existingUser = userService.findUser(userId);
+
         mapper.updateUserFromDto(inboundUserDto, existingUser);
         existingUser = userService.saveUser(existingUser);
         return mapper.toUserDto(existingUser);
