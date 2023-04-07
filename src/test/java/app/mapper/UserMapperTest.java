@@ -68,7 +68,7 @@ class UserMapperTest {
     @DisplayName("updateUserFromDto() method casual case")
     void updateUserFromDto() {
         var userBeforeUpdate = getUser();
-        var userClone = userBeforeUpdate.toBuilder().build();
+        var userClone = getUser();
 
         var userDto = UserDto.builder()
                 .id(2L)
@@ -77,7 +77,12 @@ class UserMapperTest {
                 .birthDate(LocalDate.MIN)
                 .build();
 
+
+        System.out.println(userBeforeUpdate);
+        System.out.println(userClone);
         userMapper.updateUserFromDto(userDto, userClone);
+        System.out.println(userBeforeUpdate);
+        System.out.println(userClone);
 
         assertThat(userClone)
                 .hasFieldOrPropertyWithValue("password", userDto.getPassword())
@@ -89,15 +94,13 @@ class UserMapperTest {
                 .hasFieldOrPropertyWithValue("firstName", userBeforeUpdate.getFirstName())
                 .hasFieldOrPropertyWithValue("lastName", userBeforeUpdate.getLastName())
                 .hasFieldOrPropertyWithValue("roles", userBeforeUpdate.getRoles());
-
-
     }
 
     @Test
     @DisplayName("updateUserFromDto() case with roleSet update")
     void UserRolesShouldCorrectlyUpdate_whenUpdatingUserFromDto() {
         var userBeforeUpdate = getUser();
-        var userClone = userBeforeUpdate.toBuilder().build();
+        var userClone = getUser();
 
         Set<Role> rolesSet = new HashSet<>(List.of(new Role(1L, "ROLE_USER"), new Role(2L, "ROLE_ADMIN")));
         var userDto = UserDto.builder()
