@@ -2,6 +2,7 @@ package app.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import app.dto.UserDto;
 import app.model.Role;
 import app.model.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import org.mapstruct.factory.Mappers;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 class UserMapperTest {
@@ -27,7 +29,7 @@ class UserMapperTest {
     @ParameterizedTest
     @MethodSource("getArgumentsForMappingTest")
     @DisplayName("All fields should be equal, when calling toUserDto() method")
-    void AllFieldsShouldBeEqual_whenUserIsMappedToUserDto(User userArg) {
+    void AllFieldsShouldBeEqual_whenUserIsMappedToDto(User userArg) {
         var userDto = userMapper.toUserDto(userArg);
 
         assertThat(userDto)
@@ -45,7 +47,7 @@ class UserMapperTest {
     @ParameterizedTest
     @MethodSource("getArgumentsForMappingTest")
     @DisplayName("All fields should be equal, when calling toUser() method")
-    void AllFieldsShouldBeEqual_whenUserDtoIsMappedToUser(User userArg) {
+    void AllFieldsShouldBeEqual_whenDtoIsMappedToUser(User userArg) {
         var userDto = userMapper.toUserDto(userArg); //тут просто перемапил обратно из аргументов, т.к. первый тест уже проверяет, что метод рабочий
 
         var user = userMapper.toUser(userDto);
@@ -63,8 +65,70 @@ class UserMapperTest {
     }
 
     @Test
+    @DisplayName("updateUserFromDto() method casual case")
     void updateUserFromDto() {
+        var userBeforeUpdate = getUser();
+        var userClone = userBeforeUpdate.toBuilder().build();
 
+        var userDto = UserDto.builder()
+                .id(2L)
+                .password("updated pass")
+                .workExp(5)
+                .birthDate(LocalDate.MIN)
+                .build();
+
+        userMapper.updateUserFromDto(userDto, userClone);
+
+        assertThat(userClone)
+                .hasFieldOrPropertyWithValue("password", userDto.getPassword())
+                .hasFieldOrPropertyWithValue("workExp", userDto.getWorkExp())
+                .hasFieldOrPropertyWithValue("birthDate", userDto.getBirthDate())
+                //field below should not change
+                .hasFieldOrPropertyWithValue("id", userBeforeUpdate.getId())
+                .hasFieldOrPropertyWithValue("login", userBeforeUpdate.getLogin())
+                .hasFieldOrPropertyWithValue("firstName", userBeforeUpdate.getFirstName())
+                .hasFieldOrPropertyWithValue("lastName", userBeforeUpdate.getLastName())
+                .hasFieldOrPropertyWithValue("roles", userBeforeUpdate.getRoles());
+
+
+    }
+
+    @Test
+    @DisplayName("updateUserFromDto() case with roleSet update")
+    void UserRolesShouldCorrectlyUpdate_whenUpdatingUserFromDto() {
+        var userBeforeUpdate = getUser();
+        var userClone = userBeforeUpdate.toBuilder().build();
+
+        Set<Role> rolesSet = new HashSet<>(List.of(new Role(1L, "ROLE_USER"), new Role(2L, "ROLE_ADMIN")));
+        var userDto = UserDto.builder()
+                .roles(rolesSet)
+                .build();
+
+        userMapper.updateUserFromDto(userDto, userClone);
+
+        assertThat(userClone)
+                .hasFieldOrPropertyWithValue("roles", userDto.getRoles())
+                //fields below should not change
+                .hasFieldOrPropertyWithValue("password", userBeforeUpdate.getPassword())
+                .hasFieldOrPropertyWithValue("workExp", userBeforeUpdate.getWorkExp())
+                .hasFieldOrPropertyWithValue("birthDate", userBeforeUpdate.getBirthDate())
+                .hasFieldOrPropertyWithValue("id", userBeforeUpdate.getId())
+                .hasFieldOrPropertyWithValue("login", userBeforeUpdate.getLogin())
+                .hasFieldOrPropertyWithValue("firstName", userBeforeUpdate.getFirstName())
+                .hasFieldOrPropertyWithValue("lastName", userBeforeUpdate.getLastName());
+    }
+
+    private User getUser() {
+        return User.builder()
+                .id(2)
+                .login("user")
+                .password("pass")
+                .firstName("User")
+                .lastName("Userovich")
+                .workExp(3)
+                .birthDate(LocalDate.of(1994, 12, 23))
+                .roles(new HashSet<>(List.of(new Role(1L, "ROLE_USER"))))
+                .build();
     }
 
     static Stream<Arguments> getArgumentsForMappingTest() {
@@ -78,7 +142,7 @@ class UserMapperTest {
                 .birthDate(LocalDate.EPOCH)
                 .build();
 
-        final User CORRECT_USER = User.builder()
+        final User CASUAL_USER = User.builder()
                 .id(2)
                 .login("user2")
                 .password("pass2")
@@ -89,13 +153,12 @@ class UserMapperTest {
                 .roles(new HashSet<>(List.of(new Role(1L, "ROLE_USER"))))
                 .build();
 
-        final User USER_WITH_DEFAULT_FIELDS = User.builder().build();
+        final User USER_WITH_DEFAULT_VALUES = User.builder().build();
 
         return Stream.of(
-                Arguments.of(CORRECT_USER),
+                Arguments.of(CASUAL_USER),
                 Arguments.of(USER_WITHOUT_ROLES),
-                Arguments.of(USER_WITH_DEFAULT_FIELDS)
+                Arguments.of(USER_WITH_DEFAULT_VALUES)
         );
     }
-
 }
