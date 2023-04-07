@@ -1,5 +1,6 @@
 package app.mapper;
 
+import static java.util.stream.Collectors.toSet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import app.dto.UserDto;
@@ -77,12 +78,7 @@ class UserMapperTest {
                 .birthDate(LocalDate.MIN)
                 .build();
 
-
-        System.out.println(userBeforeUpdate);
-        System.out.println(userClone);
         userMapper.updateUserFromDto(userDto, userClone);
-        System.out.println(userBeforeUpdate);
-        System.out.println(userClone);
 
         assertThat(userClone)
                 .hasFieldOrPropertyWithValue("password", userDto.getPassword())
@@ -92,11 +88,16 @@ class UserMapperTest {
                 .hasFieldOrPropertyWithValue("id", userBeforeUpdate.getId())
                 .hasFieldOrPropertyWithValue("login", userBeforeUpdate.getLogin())
                 .hasFieldOrPropertyWithValue("firstName", userBeforeUpdate.getFirstName())
-                .hasFieldOrPropertyWithValue("lastName", userBeforeUpdate.getLastName())
-                .hasFieldOrPropertyWithValue("roles", userBeforeUpdate.getRoles());
+                .hasFieldOrPropertyWithValue("lastName", userBeforeUpdate.getLastName());
+
+        //роли сравниваю отдельно и по именам, потому что тут хэшсеты, и у них будут разные хэшкоды, как и у самих ролей - разные хэшкоды
+        Set<String> actualRolesNames = userClone.getRoles().stream().map(Role::toString).collect(toSet());
+        Set<String> expectedRolesNames = userBeforeUpdate.getRoles().stream().map(Role::toString).collect(toSet());
+
+        assertThat(actualRolesNames).containsAll(expectedRolesNames);
     }
 
-    @Test
+    @Test //отдельный кейс для проверки правильности присвоения ролей(т.к. там хэшсеты, были баги в приложении)
     @DisplayName("updateUserFromDto() case with roleSet update")
     void UserRolesShouldCorrectlyUpdate_whenUpdatingUserFromDto() {
         var userBeforeUpdate = getUser();
